@@ -1,0 +1,133 @@
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box; /* Include padding and border in element's total width and height */
+}
+
+html, body {
+  height: 100%;
+  width: 100%;
+  font-family: Arial, sans-serif; /* Global font style */
+}
+
+/* Container for the whole app */
+.app-container {
+  padding: 40px; /* Increased padding for more space */
+  background-color: #f4f4f4; /* Background color for the app */
+  width: 900px; /* Fixed width for desktop layout */
+  height: auto; /* Allow auto height */
+  max-width: 1200px; /* Optional: Maximum width for larger screens */
+  margin: 20px auto; /* Center the container with some margin */
+  border-radius: 8px; /* Optional: Rounded corners */
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2); /* Optional: Subtle shadow for depth */
+}
+
+/* Header styles */
+h1 {
+  text-align: center; /* Center the header text */
+  margin-bottom: 30px; /* Space below the header */
+  font-size: 2em; /* Larger font size for header */
+}
+
+/* Task Form styles */
+.task-form {
+  margin-bottom: 30px; /* Space below the form */
+}
+
+/* Input fields and text area styles */
+.task-input, .task-select, .task-textarea {
+  margin-bottom: 15px; /* Space below each input */
+  padding: 12px; /* Increased padding inside inputs */
+  border: 1px solid #ccc; /* Border for inputs */
+  border-radius: 4px; /* Rounded corners */
+  width: 100%; /* Full width of the container */
+  font-size: 1em; /* Larger font size for better readability */
+}
+
+.task-textarea {
+  resize: vertical; /* Allow vertical resizing only */
+}
+
+/* Button styles */
+.task-button {
+  background-color: #007bff; /* Button color */
+  color: white; /* Text color */
+  border: none; /* Remove border */
+  padding: 12px; /* Padding inside buttons */
+  border-radius: 4px; /* Rounded corners */
+  cursor: pointer; /* Change cursor on hover */
+  margin-right: 100px; /* Space between buttons */
+  font-size: 1em; /* Larger font size */
+}
+
+.task-button:hover {
+  background-color: #0056b3; /* Darker shade on hover */
+}
+
+/* Task List styles */
+.task-list {
+  margin-top: 30px; /* Space above the task list */
+}
+
+/* Task List header styles */
+.task-table-header {
+  display: flex; /* Use flexbox for layout */
+  background-color: #e9ecef; /* Light gray background for header */
+  padding: 10px; /* Padding inside header */
+  border-bottom: 2px solid #ccc; /* Border below the header */
+}
+
+.task-table-header div {
+  flex: 1; /* Equal space for each column */
+  font-weight: bold; /* Bold text for headings */
+}
+
+.task-list ul {
+  list-style-type: none; /* Remove bullet points */
+  padding: 0; /* Remove padding */
+  width: 100%; /* Full width */
+}
+
+/* Each task item styling */
+.task-item {
+  display: flex; /* Use flexbox for layout */
+  align-items: center; /* Center items vertically */
+  padding: 10px; /* Padding inside task items */
+  border-bottom: 1px solid #ddd; /* Border below each task item */
+}
+
+/* Task controls styles for Add, Refresh, and Search */
+.task-controls {
+  display: flex; /* Flex layout for task controls */
+  justify-content: flex-start; /* Align items to the start */
+  align-items: center; /* Center items vertically */
+  margin-bottom: 30px; /* Space below controls */
+}
+
+/* Search bar styling */
+.task-search {
+  padding: 12px; /* Padding inside the search bar */
+  border: 1px solid #ccc; /* Border for the search bar */
+  border-radius: 4px; /* Rounded corners */
+  width: 250px; /* Fixed width for search bar */
+  font-size: 1em; /* Larger font size */
+}
+
+/* Bulk delete button styles */
+.bulk-delete-button {
+  background-color: #dc3545; /* Delete button color */
+  color: white; /* Text color */
+  border: none; /* Remove border */
+  padding: 12px; /* Padding inside the button */
+  border-radius: 4px; /* Rounded corners */
+  cursor: pointer; /* Change cursor on hover */
+  margin-top: 20px; /* Space above the button */
+}
+
+.bulk-delete-button:hover {
+  background-color: #c82333; /* Darker shade on hover */
+}
+
+
+

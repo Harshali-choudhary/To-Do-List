@@ -1,0 +1,57 @@
+/* AddTask.css */
+
+/* Form container */
+.task-form {
+    display: flex;
+    flex-direction: column; /* Stack the elements vertically */
+    background-color: #ffffff; /* White background for the form */
+    padding: 20px; /* Padding inside the form */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}
+
+/* Input fields styles */
+.task-input, .task-select, .task-textarea {
+    margin-bottom: 15px; /* Space below each input */
+    padding: 12px; /* Padding inside inputs */
+    border: 1px solid #ccc; /* Border for inputs */
+    border-radius: 4px; /* Rounded corners */
+    width: 100%; /* Full width of the container */
+    font-size: 1em; /* Larger font size for better readability */
+}
+
+/* Specific styles for textarea */
+.task-textarea {
+    resize: vertical; /* Allow vertical resizing only */
+}
+
+/* Button styles */
+.task-button {
+    background-color: #007bff; /* Button color */
+    color: white; /* Text color */
+    border: none; /* Remove border */
+    padding: 12px; /* Padding inside buttons */
+    border-radius: 4px; /* Rounded corners */
+    cursor: pointer; /* Change cursor on hover */
+    font-size: 1em; /* Larger font size */
+    transition: background-color 0.3s; /* Smooth transition */
+}
+
+.task-button:hover {
+    background-color: #0056b3; /* Darker shade on hover */
+}
+
+/* Heading styles */
+h2 {
+    text-align: center; /* Center the heading text */
+    margin-bottom: 20px; /* Space below the heading */
+    color: #333; /* Dark gray color for better readability */
+    font-size: 1.5em; /* Larger font size */
+    font-weight: bold; /* Bold font for emphasis */
+}
+
+/* Styles for error messages or validation feedback */
+.error-message {
+    color: red; /* Red color for errors */
+    margin-top: 5px; /* Space above error messages */
+}
