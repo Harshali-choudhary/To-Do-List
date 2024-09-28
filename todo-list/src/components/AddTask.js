@@ -1,91 +1,85 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
-import './AddTask.css';
 
-const AddTask = ({ onAddTask, tasks }) => {
-    const [assignedTo, setAssignedTo] = useState('');
-    const [status, setStatus] = useState('Pending');
-    const [priority, setPriority] = useState('Medium');
-    const [dueDate, setDueDate] = useState('');
-    const [description, setDescription] = useState('');
-    const { id } = useParams(); // Get the task ID from the URL
-    const navigate = useNavigate(); // Use useNavigate instead of useHistory
+const AddTask = ({ onAddTask, editingTask }) => {
+    const [task, setTask] = useState({
+        assignedTo: '',
+        status: 'Pending',
+        priority: 'Medium',
+        dueDate: '',
+        description: '',
+    });
 
+    // Prepopulate the form with the task to edit (if available)
     useEffect(() => {
-        if (id) {
-            const taskToEdit = tasks.find((task) => task.id === parseInt(id));
-            if (taskToEdit) {
-                setAssignedTo(taskToEdit.assignedTo);
-                setStatus(taskToEdit.status);
-                setPriority(taskToEdit.priority);
-                setDueDate(taskToEdit.dueDate);
-                setDescription(taskToEdit.description);
-            }
+        if (editingTask) {
+            setTask({
+                ...editingTask,
+                dueDate: editingTask.dueDate ? new Date(editingTask.dueDate).toISOString().split("T")[0] : '',
+            });
         }
-    }, [id, tasks]);
+    }, [editingTask]);
 
-    const handleSubmit = (e) => {
+    const handleChange = (e) => {
+        setTask({
+            ...task,
+            [e.target.name]: e.target.value,
+        });
+    };
+
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        const newTask = {
-            id: id ? parseInt(id) : Date.now(),
-            assignedTo,
-            status,
-            priority,
-            dueDate,
-            description,
-        };
-        onAddTask(newTask);
-        navigate('/'); // Redirect back to Task List after adding/updating
+
+        try {
+            // Call the add or update handler (based on editingTask)
+            onAddTask(task);
+            // Clear form after submission
+            setTask({
+                assignedTo: '',
+                status: 'Pending',
+                priority: 'Medium',
+                dueDate: '',
+                description: '',
+            });
+        } catch (error) {
+            console.error('Error saving task:', error);
+            alert('Error saving task. Please try again.');
+        }
     };
 
     return (
-        <form onSubmit={handleSubmit} className="task-form">
-            <h2>{id ? 'Edit Task' : 'Add New Task'}</h2>
-                <div style={{marginBottom : '20px',flexDirection : 'row'}}>
-                    
-            <textarea
-                value={assignedTo}
-                onChange={(e) => setAssignedTo(e.target.value)}
-                placeholder="Assigned To" // Updated placeholder
-                className="task-input" // Ensure the class applies styling
+        <form onSubmit={handleSubmit}>
+            <h2>{editingTask ? 'Edit Task' : 'Add New Task'}</h2>
+            <input
+                type="text"
+                name="assignedTo"
+                value={task.assignedTo}
+                onChange={handleChange}
+                placeholder="Assigned To"
                 required
             />
-            <select
-                value={status}
-                onChange={(e) => setStatus(e.target.value)}
-                className="task-select"
-            >
+            <select name="status" value={task.status} onChange={handleChange}>
                 <option value="Pending">Pending</option>
                 <option value="Completed">Completed</option>
             </select>
-            <select
-                value={priority}
-                onChange={(e) => setPriority(e.target.value)}
-                className="task-select"
-            >
+            <select name="priority" value={task.priority} onChange={handleChange}>
                 <option value="High">High</option>
                 <option value="Medium">Medium</option>
                 <option value="Low">Low</option>
             </select>
             <input
                 type="date"
-                value={dueDate}
-                onChange={(e) => setDueDate(e.target.value)}
-                className="task-input"
+                name="dueDate"
+                value={task.dueDate}
+                onChange={handleChange}
                 required
             />
             <textarea
-                value={description}
-                onChange={(e) => setDescription(e.target.value)}
-                placeholder="Task Description"
-                className="task-textarea"
+                name="description"
+                value={task.description}
+                onChange={handleChange}
+                placeholder="Description"
             />
-            <br>
-            </br>
-            <button type="submit" className="task-button">
-                {id ? 'Update Task' : 'Add Task'}
-            </button>
-            </div>
+            <button type="submit">{editingTask ? 'Update Task' : 'Add Task'}</button>
         </form>
     );
 };
