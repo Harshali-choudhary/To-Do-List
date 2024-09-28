@@ -26,13 +26,12 @@ const AddTask = ({ onAddTask, editingTask }) => {
         });
     };
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = (e) => {
         e.preventDefault();
 
         try {
-            // Call the add or update handler (based on editingTask)
-            onAddTask(task);
-            // Clear form after submission
+            onAddTask(task);  // Call the parent function to add or update the task
+            // Clear the form after submission
             setTask({
                 assignedTo: '',
                 status: 'Pending',

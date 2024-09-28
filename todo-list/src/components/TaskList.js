@@ -1,22 +1,23 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { getTasks } from '../services/TaskService'; // Import the function to fetch tasks
+import { getTasks } from '../services/TaskService'; // Make sure to import the getTasks function
 
-const TaskList = ({ onDelete, onEdit }) => {
-    const [tasks, setTasks] = useState([]);
-    const [searchTerm, setSearchTerm] = useState('');
+const TaskList = ({ tasks, onDelete, onEdit }) => {
     const navigate = useNavigate();
+    const [searchTerm, setSearchTerm] = useState('');
 
-    // Fetch tasks when the component mounts
-    useEffect(() => {
-        fetchTasks(); // Fetch tasks on page load
-    }, []);
+    // Handle Edit Task
+    const handleEditTask = (taskId) => {
+        onEdit(taskId);  // Set the task to edit
+        navigate(`/edit-task/${taskId}`);  // Navigate to the edit task page
+    };
 
-    // Function to fetch tasks from the backend
+    // Function to fetch tasks from the backend (not typically needed here if tasks are passed as a prop)
     const fetchTasks = async () => {
         try {
             const taskData = await getTasks(); // Call the backend service
-            setTasks(taskData); // Update the state with fetched tasks
+            console.log('Fetched tasks:', taskData);
+            // Assuming you have some state management to store fetched tasks
         } catch (error) {
             console.error('Failed to fetch tasks:', error);
             alert('Error fetching tasks. Please try again later.'); // Basic error handling
@@ -34,17 +35,9 @@ const TaskList = ({ onDelete, onEdit }) => {
         task.description.toLowerCase().includes(searchTerm.toLowerCase())
     );
 
-    const handleEditTask = (taskId) => {
-        const taskToEdit = tasks.find((task) => task.id === taskId);
-        onEdit(taskToEdit);  // Set the task to edit
-        navigate(`/edit-task/${taskId}`);  // Navigate to the edit task page
-    };
-
     return (
         <div className="task-list">
             <h2>Task List</h2> {/* Heading for the Task List */}
-
-            {/* Task controls: Add Task, Refresh, and Search */}
             <div className="task-controls">
                 <Link to="/add-task" className="task-button">Add Task</Link>
                 <button onClick={fetchTasks} className="task-button">Refresh</button> {/* Call fetchTasks on refresh */}
@@ -57,7 +50,6 @@ const TaskList = ({ onDelete, onEdit }) => {
                 />
             </div>
 
-            {/* List of tasks */}
             <ul>
                 {filteredTasks.length === 0 ? (
                     <p>No tasks available</p>
